@@ -18,32 +18,48 @@
                         </ol>
                     </div>
                 </div>
-                <br>
-<#--                TODO: finish implementing this-->
-                <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username)??>
-                    <div class="row">
-                        <p>Adding to friends doesn't work yet</p>
-                        <form id="add-friend-form" action="/add-friend" method="post">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <input type="hidden" name="username" value="${user.getUsername()}">
-                            <input type="hidden" name="">
-                        </form>
-                        <div class="col-lg-12 btn-showcase">
-                            <button form="add-friend-form" class="btn btn-primary btn-pill"><i
-                                        class="icofont icofont-people"></i> Add to friends
-                            </button>
-                        </div>
-                    </div>
-                </#if>
             </div>
         </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <form id="set-page-visibility" action="/set-page-visibility" method="post">
+                        <input type="hidden" name="username" value="${user.getUsername()}">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <div class="form-group">
+                            <label>Page visibility:</label>
+                            <!-- TODO: learn to not shitcode xd -->
+                            <div class="m-checkbox-inline">
+                                <label for="edo-ani">
+                                    <input class="radio_animated" id="edo-ani" type="radio" name="pageVisibility" <#if user.getPageVisibility().ordinal() == 2> checked=""</#if> value="VISIBLE_TO_ALL">All
+                                </label>
+                                <label for="edo-ani1">
+                                    <input class="radio_animated" id="edo-ani1" type="radio" name="pageVisibility" <#if user.getPageVisibility().ordinal() == 1> checked=""</#if> value="VISIBLE_TO_USERS">Authorized
+                                </label>
+                                <label for="edo-ani2">
+                                    <input class="radio_animated" id="edo-ani2" type="radio" name="pageVisibility" <#if user.getPageVisibility().ordinal() == 0> checked=""</#if> value="VISIBLE_TO_FRIENDS">Friends
+                                </label>
+                            </div>
+                            <!-- shitcode -->
+                        </div>
+                    </form>
+                    <div class="btn-showcase">
+                        <button form="set-page-visibility"
+                                class="btn btn-primary btn-pill" type="submit">Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Container-fluid starts-->
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <#if canSeePosts && posts?size == 0>
+                    <#if posts?size == 0>
                         <p>No posts yet</p>
-                    <#elseif canSeePosts>
+                    <#else>
                         <#list posts as post>
                             <div class="blog-single">
                                 <div class="blog-box blog-details">
@@ -58,7 +74,12 @@
                                                 <span>Hits</span></li>
                                             <li class="digits"><i
                                                         class="icofont icofont-ui-chat"></i>${post.getComments()?size}
-                                                Comments
+                                                Comments |
+                                                <#if post.commentsEnabled>
+                                                    <a href="/post-set-comments?postId=${post.getId()}&commentsEnabled=false">Disable</a>
+                                                <#else>
+                                                    <a href="/post-set-comments?postId=${post.getId()}&commentsEnabled=true">Enable</a>
+                                                </#if>
                                             </li>
                                         </ul>
                                         <h4>
@@ -135,8 +156,6 @@
                                 </section>
                             </div>
                         </#list>
-                    <#else>
-                        <p>You have no access to posts</p>
                     </#if>
                 </div>
             </div>

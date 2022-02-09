@@ -10,7 +10,8 @@
         <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
         <title>Team app</title>
         <!-- Google font-->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+              rel="stylesheet">
         <!-- Font Awesome-->
         <link rel="stylesheet" type="text/css" href="/css/fontawesome.css">
         <!-- ico-font-->
@@ -45,26 +46,33 @@
                 </div>
                 <div class="mobile-sidebar">
                     <div class="media-body text-right switch-sm">
-                        <label class="switch ml-3"><i class="font-primary" id="sidebar-toggle" data-feather="align-center"></i></label>
+                        <label class="switch ml-3"><i class="font-primary" id="sidebar-toggle"
+                                                      data-feather="align-center"></i></label>
                     </div>
                 </div>
                 <div class="vertical-mobile-sidebar"><i class="fa fa-bars sidebar-bar"></i></div>
                 <div class="nav-right col pull-right right-menu">
                     <ul class="nav-menus">
                         <li></li>
-                        <li class="onhover-dropdown"> <span class="media user-header"><img class="img-fluid" src="/images/dashboard/user.png" alt=""></span>
+                        <li class="onhover-dropdown"><span class="media user-header"><img class="img-fluid"
+                                                                                          src="/images/dashboard/user.png"
+                                                                                          alt=""></span>
                             <ul class="onhover-show-div profile-dropdown">
                                 <li class="gradient-primary">
                                     <h5 class="f-w-600 mb-0">
-                                        ${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username}
+                                        ${(Session.SPRING_SECURITY_CONTEXT.authentication.principal.username)!"Unknown"}
                                     </h5><span>User</span>
                                 </li>
-                                <li><i data-feather="user"> </i>Profile</li>
-                                <li><i data-feather="logout"> </i>
-                                    <a href="/logout">
-                                        Logout
-                                    </a>
-                                </li>
+                                <li><i data-feather="user"> </i><a href="/profile">Profile</a></li>
+                                <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username)??>
+                                    <li><i data-feather="logout"> </i>
+                                        <a href="/logout">Logout</a>
+                                    </li>
+                                <#else>
+                                    <li><i data-feather="login"></i>
+                                        <a href="/login">Login</a>
+                                    </li>
+                                </#if>
                             </ul>
                         </li>
                     </ul>
@@ -74,11 +82,14 @@
                     <div class="ProfileCard u-cf">
                         <div class="ProfileCard-avatar"><i class="pe-7s-home"></i></div>
                         <div class="ProfileCard-details">
-                            <div class="ProfileCard-realName">${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username}</div>
+                            <div class="ProfileCard-realName">${(Session.SPRING_SECURITY_CONTEXT.authentication.principal.username)!"Unknown"}</div>
                         </div>
                     </div>
                 </script>
-                <script id="empty-template" type="text/x-handlebars-template"><div class="EmptyMessage">Your search turned up 0 results. This most likely means the backend is down, yikes!</div></script>
+                <script id="empty-template" type="text/x-handlebars-template">
+                    <div class="EmptyMessage">Your search turned up 0 results. This most likely means the backend is
+                        down, yikes!
+                    </div></script>
             </div>
         </div>
         <!-- Page Header Ends-->
@@ -89,7 +100,8 @@
                 <div class="sidebar">
                     <ul class="iconMenu-bar custom-scrollbar">
                         <li><a class="bar-icons" href="javascript:void(0)">
-                                <!--img(src='/images/menu/home.png' alt='')--><i class="pe-7s-home"></i><span>General    </span></a>
+                                <!--img(src='/images/menu/home.png' alt='')--><i
+                                        class="pe-7s-home"></i><span>General    </span></a>
                             <ul class="iconbar-mainmenu custom-scrollbar">
                                 <li class="iconbar-header">Dashboard</li>
                                 <li><a href="/">Blog</a></li>

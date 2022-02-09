@@ -23,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/app-post").access("hasRole('USER')")
+                .antMatchers("/user/**", "/").permitAll()
                 .antMatchers("/pug/**","/css/**", "/js/*", "/images/**", "/ajax/**", "/json/**", "/scss/**", "/video/**", "/fonts/**", "/audio/**").permitAll()
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").defaultSuccessUrl("/", true).permitAll().and().logout().logoutUrl("/logout")
                 .logoutSuccessUrl("/registration").permitAll();
