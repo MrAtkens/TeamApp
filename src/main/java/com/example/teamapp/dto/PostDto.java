@@ -18,6 +18,7 @@ public class PostDto {
         this.postTitle = postTitle;
         this.postText = postText;
         this.postVisibility = VisibilityEnum.VISIBLE_TO_ALL;
+        this.commentsEnabled = true;
     }
 
     public PostDto(String postTitle, String postText, boolean isCommentsEnabled) {

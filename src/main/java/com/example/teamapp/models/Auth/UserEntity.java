@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -24,11 +25,11 @@ public class UserEntity extends AbstractEntity {
     //  page to see incoming friend request
     //  accept from there
     @ManyToMany
-    private Collection<UserEntity> friends;
+    private Collection<UserEntity> friends = new ArrayList<>();
 
     @JsonManagedReference
     @OneToMany()
-    private Collection<PostEntity> posts;
+    private Collection<PostEntity> posts = new ArrayList<>();
 
     private VisibilityEnum pageVisibility = VisibilityEnum.VISIBLE_TO_ALL;
 

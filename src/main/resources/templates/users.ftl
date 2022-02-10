@@ -31,17 +31,16 @@
                                     <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Account created date</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
+                                    <#list friends as friend>
+                                        <tr>
+                                            <td><a href="/user/${friend.getUsername()}">${friend.getUsername()}</a></td>
+                                            <td>${friend.getCreatedDate()}</td>
+                                        </tr>
+                                    </#list>
                                     </tbody>
                                 </table>
                             </div>

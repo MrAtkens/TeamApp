@@ -60,8 +60,6 @@ public class UserService {
         return user.getFriends().contains(principalUser);
     }
 
-
-
     public boolean isPageOwner(final String username, final Principal principal) {
         boolean isPageOwner = false;
         if (principal != null) {

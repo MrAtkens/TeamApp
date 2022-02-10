@@ -9,6 +9,11 @@ public class PostCommentDto {
     public PostCommentDto() {
     }
 
+    public PostCommentDto(UUID postId, String commentText) {
+        this.postId = postId;
+        this.commentText = commentText;
+    }
+
     public UUID getPostId() {
         return postId;
     }

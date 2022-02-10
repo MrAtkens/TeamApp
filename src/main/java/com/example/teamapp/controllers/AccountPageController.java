@@ -58,7 +58,9 @@ public class AccountPageController {
 
     @PreAuthorize("hasRole('USERS')")
     @GetMapping("/users")
-    public String users(){
+    public String users(Map<String, Object> model, Principal principal){
+        UserEntity user = userService.findUserByUsername(principal.getName());
+        model.put("friends", user.getFriends());
         return "users";
     }
 
