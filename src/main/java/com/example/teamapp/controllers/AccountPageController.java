@@ -4,13 +4,12 @@ package com.example.teamapp.controllers;
 import com.example.teamapp.dto.PostCommentDto;
 import com.example.teamapp.dto.PostDto;
 import com.example.teamapp.models.Auth.UserEntity;
-import com.example.teamapp.models.PostCommentEntity;
 import com.example.teamapp.models.PostEntity;
 import com.example.teamapp.models.VisibilityEnum;
 import com.example.teamapp.services.PostCommentService;
 import com.example.teamapp.services.PostService;
 import com.example.teamapp.services.UserService;
-import org.springframework.security.access.prepost.PostAuthorize;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,18 +18,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 @Controller
+@Log4j2
 public class AccountPageController {
 
     private final UserService userService;
     private final PostService postService;
     private final PostCommentService commentService;
+
+    static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
     public AccountPageController(UserService userService, PostService postService, PostCommentService commentService) {
         this.userService = userService;
@@ -147,5 +153,20 @@ public class AccountPageController {
         commentService.saveComment(postCommentDto, userService.findUserByUsername(principal.getName()));
         System.out.println("AccountPageController.createComment: Redirecting to " + continueTo);
         return "redirect:" + continueTo;
+    }
+
+    public static void infoLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        log.info("Date: " + dtf.format(LocalDateTime.now())
+                + "\n Request "
+                + "\n Headers: "  + request.getHeaderNames()
+                + "\n Parameters names: "  + request.getParameterNames()
+                + "\n Parameters: "  + request.getParameterMap()
+                + "\n Attributes: " + request.getAttributeNames()
+                + "\n ContentType: " + request.getContentType()
+                + "\n ContentLength: " + request.getContentLength()
+                + " Response "
+                + "\n Headers: " + response.getHeaderNames()
+                + "\n ContentType: " + response.getContentType()
+                + "\n Content: " + response.getWriter().toString());
     }
 }
