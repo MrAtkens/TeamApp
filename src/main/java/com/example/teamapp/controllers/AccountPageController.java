@@ -155,18 +155,4 @@ public class AccountPageController {
         return "redirect:" + continueTo;
     }
 
-    public static void infoLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        log.info("Date: " + dtf.format(LocalDateTime.now())
-                + "\n Request "
-                + "\n Headers: "  + request.getHeaderNames()
-                + "\n Parameters names: "  + request.getParameterNames()
-                + "\n Parameters: "  + request.getParameterMap()
-                + "\n Attributes: " + request.getAttributeNames()
-                + "\n ContentType: " + request.getContentType()
-                + "\n ContentLength: " + request.getContentLength()
-                + " Response "
-                + "\n Headers: " + response.getHeaderNames()
-                + "\n ContentType: " + response.getContentType()
-                + "\n Content: " + response.getWriter().toString());
-    }
 }
