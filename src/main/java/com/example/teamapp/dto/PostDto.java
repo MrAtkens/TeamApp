@@ -11,6 +11,9 @@ public class PostDto {
     private VisibilityEnum postVisibility;
     private boolean commentsEnabled;
 
+    public PostDto() {
+    }
+
     public PostDto(String s) {
     }
 
