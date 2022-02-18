@@ -40,6 +40,21 @@ public class PostService {
         user.getPosts().add(postEntity);
     }
 
+    @Transactional
+    public PostEntity savePostWebSocket(final PostDto postDto, final String username) {
+        UserEntity user = userService.findUserByUsername(username);
+
+        PostEntity postEntity = new PostEntity();
+        postEntity.setPostTitle(postDto.getPostTitle());
+        postEntity.setPostText(postDto.getPostText());
+        postEntity.setPostAuthor(user);
+        postEntity.setCommentsEnabled(postDto.isCommentsEnabled());
+        postEntity.setPostVisibility(postDto.getPostVisibility());
+        postEntity = postRepo.save(postEntity);
+        user.getPosts().add(postEntity);
+        return postEntity;
+    }
+
     /**
      * @return all posts by visibility
      */

@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
@@ -60,11 +57,6 @@ public class AccountPageController {
     @GetMapping("/add-post")
     public String addPost(){
         return "add-post";
-    }
-
-    @GetMapping("/websocket")
-    public String addWebsocket(){
-        return "websocket";
     }
 
     @PreAuthorize("hasRole('USERS')")
@@ -160,4 +152,10 @@ public class AccountPageController {
         return "redirect:" + continueTo;
     }
 
+
+
+    @GetMapping("/websocket")
+    public String addWebsocket(){
+        return "websocket";
+    }
 }
