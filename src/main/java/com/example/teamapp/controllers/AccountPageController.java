@@ -57,9 +57,14 @@ public class AccountPageController {
         return "index";
     }
 
-@GetMapping("/add-post")
+    @GetMapping("/add-post")
     public String addPost(){
         return "add-post";
+    }
+
+    @GetMapping("/websocket")
+    public String addWebsocket(){
+        return "websocket";
     }
 
     @PreAuthorize("hasRole('USERS')")
